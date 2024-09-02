@@ -37,7 +37,7 @@
 					starty: 8
 				},
 				{
-					clue: "I recently heard this bitcoiner say that he was thinking about making a program that solo mined a single hash. If this person does that, and then he makes it open source, I'm totally going to make a UI for it that is either a slot machine or a carny game. Please do what you can to get that person to respond here. Simply tagging is helpful, but if we can get some discussion actually going on taking this great educational idea and making it look goofy, that would be bounty-worthy.",
+					clue: "I recently heard this bitcoiner say that he was thinking about making a program that solo mined a single hash. If this person does that, and then he makes it open source, I'm totally going to make a UI for it that is either a slot machine or a carny game. Please do what you can to get that person to respond here. Simply tagging is helpful, but if we can get some actual discussion going on taking this great educational idea and making it look goofy, that would be bounty-worthy.",
 					answer: "supertestnet",
 					position: 12,
 					orientation: "across",
