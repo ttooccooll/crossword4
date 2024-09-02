@@ -96,6 +96,10 @@ ul.clue-done {
   margin-bottom: 3%;
 }
 
+#puzzle-clues > * {
+  flex: 1;
+}
+
 #across {
   margin-right: 50px;
 }
