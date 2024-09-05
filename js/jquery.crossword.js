@@ -98,14 +98,14 @@
 							console.log('input keyup: '+solvedToggle);
 							
 							puzInit.checkAnswer(e);
-
 						}
-						puzInit.handleKeyup(e);
-						window.addEventListener('beforeunload', function() {
-							puzInit.saveState();
-						});
+						puzInit.saveState();
 						e.preventDefault();
-						return false;					
+						return false;
+					});
+
+					window.addEventListener('beforeunload', function() {
+						puzInit.saveState();
 					});
 			
 					// tab navigation handler setup
