@@ -101,7 +101,9 @@
 
 						}
 						puzInit.handleKeyup(e);
-						puzInit.saveState();
+						window.addEventListener('beforeunload', function() {
+							puzInit.saveState();
+						});
 						e.preventDefault();
 						return false;					
 					});
