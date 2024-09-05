@@ -19,7 +19,6 @@
 			puzz.data = entryData;
 			
 			// append clues markup after puzzle wrapper div
-			// This should be moved into a configuration object
 			this.after('<div id="puzzle-clues"><div class="across"><h2>Across</h2><ol id="across"></div></ol><div class="down"><h2>Down</h2><ol id="down"></div></ol></div>');
 			
 			// initialize some variables
@@ -100,8 +99,6 @@
 							puzInit.checkAnswer(e);
 						}
 						puzInit.saveState();
-						e.preventDefault();
-						return false;
 					});
 
 					window.addEventListener('beforeunload', function() {
@@ -253,7 +250,7 @@
 							if($(light).empty()){
 								$(light)
 									.addClass('entry-' + (hasOffset ? x - positionOffset : x) + ' position-' + (x-1) )
-									.append('<input maxlength="1" val="" type="text" tabindex="-1" />');
+									.append('<input maxlength="1" value="" type="text" tabindex="-1" />');
 							}
 						};
 						var startCoord = puzz.data[x - 1].orientation === 'across' ? entries[x - 1][0] : entries[x - 1][0];
@@ -322,8 +319,44 @@
 					//console.log(z);
 					//console.log('checkAnswer() solvedToggle: '+solvedToggle);
 
-				}				
+				},		
 
+				saveState: function() {
+					try {
+						var state = {};
+						$('#puzzle input').each(function() {
+							var coord = $(this).closest('td').data('coords');
+							state[coord] = $(this).val();
+						});
+						localStorage.setItem(savedStateKey, JSON.stringify(state));
+						console.log('Puzzle state saved');
+					} catch (error) {
+						console.error("Error saving puzzle state:", error);
+					}
+				},
+	
+				restoreState: function() {
+					try {
+						var savedState = localStorage.getItem(savedStateKey);
+						if (savedState) {
+							savedState = JSON.parse(savedState);
+							$('#puzzle input').each(function() {
+								var coord = $(this).closest('td').data('coords');
+								if (savedState[coord]) {
+									$(this).val(savedState[coord]);
+								}
+							});
+							console.log('Puzzle state restored');
+						}
+					} catch (error) {
+						console.error("Error restoring puzzle state:", error);
+					}
+				},
+	
+				clearState: function() {
+					localStorage.removeItem(savedStateKey);
+					console.log("Puzzle state cleared.");
+				}
 
 			}; // end puzInit object
 			
