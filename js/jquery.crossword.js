@@ -544,11 +544,42 @@
 					}
 				}
 				
-			}; // end util object
+			};
 
+			function saveProgress() {
+				var puzzleState = {};
+				$('#puzzle td input').each(function() {
+					var position = $(this).closest('td').data('coords');
+					var value = $(this).val();
+					if (value) {
+						puzzleState[position] = value;
+					}
+				});
+				localStorage.setItem('crosswordProgress', JSON.stringify(puzzleState));
+				console.log('Progress saved:', puzzleState); 
+			}
+	
+			function loadProgress() {
+				var savedProgress = JSON.parse(localStorage.getItem('crosswordProgress'));
+				if (savedProgress) {
+					Object.keys(savedProgress).forEach(function(key) {
+						var value = savedProgress[key];
+						var inputElement = $('#puzzle td[data-coords="' + key + '"] input');
+						if (inputElement.length) {
+							inputElement.val(value);
+						}
+					});
+				}
+			}
+	
+			$(document).ready(function() {
+				loadProgress();
+				$('#puzzle td input').on('input', function() {
+					saveProgress();
+				});
+			});
 				
 			puzInit.init();
-	
 							
 	}
 	
