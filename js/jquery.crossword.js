@@ -310,6 +310,7 @@
 
 						solved.push(valToCheck);
 						solvedToggle = true;
+						puzInit.saveState();
 						return;
 					}
 					
@@ -323,7 +324,7 @@
 
 				saveState: function() {
 					try {
-						var state = {};
+						var state = { solvedAnswers: solved };
 						$('#puzzle input').each(function() {
 							var coord = $(this).closest('td').data('coords');
 							state[coord] = $(this).val();
@@ -346,6 +347,18 @@
 									$(this).val(savedState[coord]);
 								}
 							});
+
+							if (savedState.solvedAnswers) {
+								solved = savedState.solvedAnswers; // Restore the solved array
+								solved.forEach(function(answer) {
+									$('.position-' + puzz.data.findIndex(entry => entry.answer.toLowerCase() === answer) + ' input')
+										.addClass('done')
+										.removeClass('active');
+									$('[data-position="' + puzz.data.findIndex(entry => entry.answer.toLowerCase() === answer) + '"]')
+										.addClass('clue-done');
+								});
+							}
+
 							console.log('Puzzle state restored');
 						}
 					} catch (error) {
