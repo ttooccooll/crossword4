@@ -42,6 +42,7 @@
 				mode = 'interacting',
 				solvedToggle = false,
 				z = 0;
+				savedStateKey = 'crosswordState'
 
 			var puzInit = {
 				
@@ -99,7 +100,8 @@
 							puzInit.checkAnswer(e);
 
 						}
-
+						puzInit.handleKeyup(e);
+						puzInit.saveState();
 						e.preventDefault();
 						return false;					
 					});
@@ -163,7 +165,7 @@
 					// DELETE FOR BG
 					puzInit.buildTable();
 					puzInit.buildEntries();
-										
+					puzInit.restoreState();				
 				},
 				
 				/*
