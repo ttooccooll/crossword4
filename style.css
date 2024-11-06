@@ -138,6 +138,7 @@ footer {
   padding-top: 0;
   color: #969696;
   font-size: small;
+  display: inline-block;
 }
 
 .links {
